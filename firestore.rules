@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Permitir leitura e escrita para todos os caminhos de forma recursiva (Zero-Friction em desenvolvimento)
+    // Isso resolve quaisquer problemas de permissão insuficiente para as coleções e subcoleções
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

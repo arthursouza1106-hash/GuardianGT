@@ -1,0 +1,11 @@
+{
+  "name": "Guardian GT",
+  "description": "Plataforma avançada para gestão de vigilância, fiscalização de postos, checklist operacional e livro de ocorrências digital.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

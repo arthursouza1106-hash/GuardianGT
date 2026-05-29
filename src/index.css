@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --radius-2xl: 1rem;
+  --radius-xl: 0.75rem;
+
+  /* Sophisticated Brown Palette */
+  --color-brand-950: #1a0f0a;
+  --color-brand-900: #2d1b12;
+  --color-brand-800: #422d21;
+  --color-brand-700: #5c4033;
+  --color-brand-600: #7b5643;
+  --color-brand-500: #a67c52;
+  --color-brand-400: #c5a059;
+  --color-brand-300: #dabf8f;
+  --color-brand-200: #eaddca;
+  --color-brand-100: #f4ece4;
+  --color-brand-50: #faf7f2;
+}
+
+@layer base {
+  body {
+    @apply font-sans text-slate-700 bg-[#f9f7f5] antialiased;
+  }
+}
+
+/* Custom Scrollbar for Sidebar */
+.sidebar-scroll {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar-scroll:hover {
+  /* No change for Firefox/IE needed as they handle hidden scrollbars reasonably */
+}
+
+.sidebar-scroll:hover::-webkit-scrollbar {
+  display: block;
+  width: 3px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}

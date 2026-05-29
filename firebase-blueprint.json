@@ -1,0 +1,271 @@
+{
+  "entities": {
+    "Viatura": {
+      "title": "Viatura",
+      "description": "Cadastro de viaturas (veículos) da fiscalização",
+      "type": "object",
+      "properties": {
+        "placa": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["placa"]
+    },
+    "Vigilante": {
+      "title": "Vigilante",
+      "description": "Cadastro de vigilantes da empresa",
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string" },
+        "matricula": { "type": "string" },
+        "cpf": { "type": "string" },
+        "telefone": { "type": "string" },
+        "email": { "type": "string" },
+        "endereco": { "type": "string" },
+        "postoFixoId": { "type": "string" },
+        "funcao": { "type": "string", "enum": ["Vigilante", "Volante", "Intermitente", "Reserva", "Supervisor"] },
+        "escala": { "type": "string" },
+        "situacao": { "type": "string", "enum": ["Ativo", "Férias", "Afastado", "Demitido"] },
+        "admissao": { "type": "string", "format": "date" },
+        "cnv": { "type": "string" },
+        "vencimentoCnv": { "type": "string", "format": "date" },
+        "observacoes": { "type": "string" },
+        "fotoUrl": { "type": "string" }
+      },
+      "required": ["nome", "matricula", "cpf", "funcao", "situacao"]
+    },
+    "Supervisor": {
+      "title": "Supervisor",
+      "description": "Cadastro de supervisores operacionais",
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string" },
+        "matricula": { "type": "string" },
+        "telefone": { "type": "string" },
+        "email": { "type": "string" },
+        "regiao": { "type": "string" },
+        "status": { "type": "string", "enum": ["Ativo", "Inativo"] }
+      },
+      "required": ["nome", "matricula", "email"]
+    },
+    "Posto": {
+      "title": "Posto",
+      "description": "Cadastro de postos de serviço",
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string" },
+        "cliente": { "type": "string" },
+        "endereco": { "type": "string" },
+        "bairro": { "type": "string" },
+        "cidade": { "type": "string" },
+        "qtdVigilantes": { "type": "number" },
+        "escala": { "type": "string" },
+        "supervisorId": { "type": "string" },
+        "observacoes": { "type": "string" },
+        "status": { "type": "string", "enum": ["Ativo", "Inativo"] },
+        "armado": { "type": "boolean" },
+        "checklistItemIds": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["nome", "cliente", "supervisorId", "armado"]
+    },
+    "ChecklistItem": {
+      "title": "Item de Checklist",
+      "description": "Itens globais para verificação nos postos",
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string" },
+        "aplicacao": { "type": "string", "enum": ["Armado", "Desarmado", "Ambos"] },
+        "status": { "type": "string", "enum": ["Ativo", "Inativo"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["nome", "aplicacao", "status"]
+    },
+    "Ocorrencia": {
+      "title": "Ocorrência",
+      "description": "Registro do Livro de Ocorrências",
+      "type": "object",
+      "properties": {
+        "data": { "type": "string", "format": "date" },
+        "hora": { "type": "string" },
+        "turno": { "type": "string", "enum": ["Diurno", "Noturno"] },
+        "supervisorId": { "type": "string" },
+        "nomeSupervisor": { "type": "string" },
+        "tipo": { "type": "string" },
+        "prioridade": { "type": "string", "enum": ["Baixa", "Média", "Alta", "Crítica"] },
+        "status": { "type": "string", "enum": ["Pendente", "Finalizada", "Aprovada"] },
+        "vigilanteFaltosoId": { "type": "string" },
+        "postoFaltaId": { "type": "string" },
+        "escalaFalta": { "type": "string" },
+        "horarioFalta": { "type": "string" },
+        "motivoFalta": { "type": "string" },
+        "vigilanteCoberturaId": { "type": "string" },
+        "tipoCobertura": { "type": "string" },
+        "entradaCobertura": { "type": "string" },
+        "saidaCobertura": { "type": "string" },
+        "observacoesCobertura": { "type": "string" },
+        "postosVisitados": { 
+          "type": "array",
+          "items": {
+             "type": "object",
+             "properties": {
+                "id": { "type": "string" },
+                "postoId": { "type": "string" },
+                "nomePosto": { "type": "string" },
+                "horario": { "type": "string" },
+                "situacao": { "type": "string" },
+                "vigilantesPresentes": { 
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "string" },
+                      "nome": { "type": "string" }
+                    }
+                  }
+                },
+                "observacoes": { "type": "string" },
+                "fotos": { "type": "array", "items": { "type": "string" } },
+                "checklist": { "type": "array" },
+                "realizado": { "type": "boolean" },
+                "motivoNaoRealizacao": { "type": "string" }
+             }
+          }
+        },
+        "observacoesGerais": { "type": "string" },
+        "anexos": { "type": "array", "items": { "type": "string" } },
+        "assinaturaUrl": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Transferencia": {
+      "title": "Transferência",
+      "description": "Registro de transferência de vigilantes entre postos.",
+      "type": "object",
+      "properties": {
+        "vigilanteSaindoId": { "type": "string" },
+        "nomeVigilanteSaindo": { "type": "string" },
+        "postoOrigemId": { "type": "string" },
+        "nomePostoOrigem": { "type": "string" },
+        "vigilanteEntrandoId": { "type": "string" },
+        "nomeVigilanteEntrando": { "type": "string" },
+        "postoDestinoId": { "type": "string" },
+        "nomePostoDestino": { "type": "string" },
+        "dataTransferencia": { "type": "string", "format": "date" },
+        "motivo": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pendente", "Realizada"] },
+        "supervisorId": { "type": "string" },
+        "nomeSupervisor": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["vigilanteSaindoId", "vigilanteEntrandoId", "postoDestinoId", "dataTransferencia", "motivo", "status"]
+    },
+    "Roteiro": {
+      "title": "Roteiro de Fiscalização",
+      "description": "Definição de roteiros diurnos e noturnos por dia da semana",
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string" },
+        "diaSemana": { "type": "string", "enum": ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"] },
+        "turno": { "type": "string", "enum": ["Diurno", "Noturno"] },
+        "postos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "nome": { "type": "string" }
+            }
+          }
+        },
+        "status": { "type": "string", "enum": ["Ativo", "Inativo"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["nome", "diaSemana", "turno", "status"]
+    },
+    "MotivoFalta": {
+      "title": "Motivo de Falta",
+      "description": "Cadastro de motivos de faltas ou coberturas",
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string" },
+        "status": { "type": "string", "enum": ["Ativo", "Inativo"] }
+      }
+    },
+    "TipoCobertura": {
+      "title": "Tipo de Cobertura",
+      "description": "Cadastro de tipos de coberturas operacionais",
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string" },
+        "status": { "type": "string", "enum": ["Ativo", "Inativo"] }
+      }
+    },
+    "Setting": {
+      "title": "Configuração",
+      "description": "Configurações globais do sistema",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "emails": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "firestore": {
+    "vigilantes": {
+      "schema": "Vigilante",
+      "description": "Coleção de vigilantes"
+    },
+    "supervisores": {
+      "schema": "Supervisor",
+      "description": "Coleção de supervisores"
+    },
+    "postos": {
+      "schema": "Posto",
+      "description": "Coleção de postos de serviço"
+    },
+    "checklistItems": {
+      "schema": "ChecklistItem",
+      "description": "Coleção de itens de checklist globais"
+    },
+    "ocorrencias": {
+      "schema": "Ocorrencia",
+      "description": "Coleção do Livro de Ocorrências"
+    },
+    "transferencias": {
+      "schema": "Transferencia",
+      "description": "Relatório de transferências de pessoal"
+    },
+    "roteiros": {
+      "schema": "Roteiro",
+      "description": "Coleção de roteiros de fiscalização"
+    },
+    "motivos_falta": {
+      "schema": "MotivoFalta",
+      "description": "Motivos de falta configuráveis"
+    },
+    "tipos_cobertura": {
+      "schema": "TipoCobertura",
+      "description": "Tipos de cobertura configuráveis"
+    },
+    "settings": {
+      "schema": "Setting",
+      "description": "Configurações de sistema"
+    },
+    "viaturas": {
+      "schema": "Viatura",
+      "description": "Coleção de viaturas operacionais"
+    },
+    "users": {
+        "schema": {
+            "type": "object",
+            "properties": {
+                "displayName": { "type": "string" },
+                "matricula": { "type": "string" },
+                "email": { "type": "string" },
+                "role": { "type": "string", "enum": ["Admin", "Supervisor", "Operacional", "Consulta"] }
+            }
+        },
+        "description": "Usuários do sistema"
+    }
+  }
+}
